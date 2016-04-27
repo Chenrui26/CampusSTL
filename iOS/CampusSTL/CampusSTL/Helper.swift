@@ -6,8 +6,11 @@
 //  Copyright © 2016 Rensselaer Polytechnic Institute. All rights reserved.
 //
 
+//helper class for other view controller files
+
 import Foundation
 
+//helper function to get all rooms from the database
 func readAllRoomsFromDatabase(serverURL: NSURL) -> NSArray? {
     let receivedData = NSData(contentsOfURL: serverURL)
     do {
@@ -18,6 +21,7 @@ func readAllRoomsFromDatabase(serverURL: NSURL) -> NSArray? {
     }
 }
 
+//helpfer function to retrieve one document in database
 func readOneRoomFromDatabase(serverURL: NSURL) -> NSDictionary? {
     let receivedData = NSData(contentsOfURL: serverURL)
     do {
@@ -29,6 +33,7 @@ func readOneRoomFromDatabase(serverURL: NSURL) -> NSDictionary? {
     }
 }
 
+//helper function that converts date to string
 func convertDatetoString(date: NSDate) -> String {
     //format date
     let dateFormatter = NSDateFormatter()
@@ -36,6 +41,7 @@ func convertDatetoString(date: NSDate) -> String {
     return dateFormatter.stringFromDate(date)
 }
 
+//helper function that converts string to date
 func convertStringtoDate(stringDate: String) -> NSDate {
     print(stringDate)
     let dateFormatter = NSDateFormatter()
