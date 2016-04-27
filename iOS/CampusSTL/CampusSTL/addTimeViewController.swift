@@ -8,6 +8,7 @@
 
 import UIKit
 
+//the view controller for the page that will be presented to users when users would like to add more time.
 class addTimeViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     var pickerData:[String]!
     var timeToAdd = 10
@@ -15,6 +16,7 @@ class addTimeViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     var myPickerChosenRowValue = "10 min"
     @IBOutlet weak var myPicker: UIPickerView!
     
+    //when the addButton was triggered, an HTTP PUT request will be sent to server 
     @IBAction func addButtonTapped(sender: UIButton) {
         let url = NSURL(string: "http://\(serverURL)/rooms/\(roomNumber)")
         if let myRoom = readOneRoomFromDatabase(url!) {
@@ -56,6 +58,7 @@ class addTimeViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         myPicker.delegate = self
     }
     
+    //member function to setupPicker based on user's request
     func setupPicker() {
         pickerData = ["10 min", "30 min", "1 hour"]
         for i in 3...19 {
