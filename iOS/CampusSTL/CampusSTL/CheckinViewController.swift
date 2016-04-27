@@ -8,7 +8,9 @@
 
 import UIKit
 
+//the class for the check in page that will be presented to the user 
 class CheckinViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+    //set user default
     let userDefault = NSUserDefaults.standardUserDefaults()
     var numberOfRoomCheckedIn = 0
     @IBOutlet weak var timeLabel: UILabel!
@@ -32,6 +34,7 @@ class CheckinViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         }
     }
     
+    //member function to set switch unit based on the occupation situation at real time
     func setSwitch() {
         let url = NSURL(string: "http://\(serverURL)/rooms/\(roomNumber)")
         if let roomInfo = readOneRoomFromDatabase(url!) {
@@ -49,6 +52,8 @@ class CheckinViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     
     var finish = false
     
+    //member function to change the switch status
+    //when a room is registered, the function will be executed
     @IBAction func checkinSwitchChanged(sender: UISwitch) {
         if sender.on {
             if numberOfRoomCheckedIn == 1 {
@@ -150,6 +155,9 @@ class CheckinViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             */
     }
     
+    //helpfer function to communicate with server using HTTP PUT verbs
+    //if success, return true
+    //else return false
     func sendCheckinToServer()->Bool {
         if timeChose == 0 {
             stayTime = 2 // should change back to 30
@@ -181,6 +189,7 @@ class CheckinViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         return true//should modify
     }
     
+    //member function to send unregister equest to server
     func sendUnregisterToServer()->Bool {
         let url = NSURL(string: "http://\(serverURL)/rooms/\(roomNumber)")
         let parameters = ["roomNumber":roomNumber,"occupied": "0","checkinTime":"-1","stayTime": "0","userId":RIN] as Dictionary<String, String>
@@ -228,6 +237,8 @@ class CheckinViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         return pickerData[row]
     }
     
+    //member function for rendering picker view
+    //set the value of time chose to 1
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         timeLabel.text = "Approx. \(pickerData[row]) to stay"
         if row == 0 {
