@@ -19,6 +19,8 @@ let serverURL = "52.90.85.173:3000"
 //let serverURL = "192.168.0.103:3000"
 var timer = -1
 
+//The ViewController class was inherited from UIViewController parent class.
+//The class will handle the model and view part for the pages that presented to user
 class ViewController: UIViewController {
     
     let userDefault = NSUserDefaults.standardUserDefaults()
@@ -42,6 +44,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var floorThreeButton: UIButton!
     @IBOutlet weak var floorFourButton: UIButton!
     
+    //helper function to interact with user when a given floor button was triggered.
+    //the corresponding fllor map will be presented to the user
     @IBAction func floorButtonTapped(sender: UIButton) {
         switch sender.titleLabel!.text! {
             case "Floor 1":
@@ -66,6 +70,7 @@ class ViewController: UIViewController {
         sender.setTitleColor(UIColor.whiteColor(), forState: .Normal)
     }
     
+    //helper function to refreshe the view
     @IBAction func refresh() {
         //spinner?.startAnimating()
         removeAllRoomsFromCurrentFloor()
@@ -93,6 +98,7 @@ class ViewController: UIViewController {
         spinner?.stopAnimating()
     }
     
+    //function to get the number of rest romms that have been check in.
     func resetNumberOfRoomCheckedIn() {
         print(userDefault.stringForKey("checkedInRoomId"))
         if userDefault.stringForKey("checkedInRoomId") != nil {
@@ -111,6 +117,7 @@ class ViewController: UIViewController {
         }
     }
     
+    //helpfer function to load and initialize the view 
     override func viewDidLoad() {
         super.viewDidLoad()
         //view.accessibilityIdentifier = "FloorView"
@@ -141,6 +148,8 @@ class ViewController: UIViewController {
         floorButtonTapped(floorButtons[floorShowing-1])
     }
     
+    //helpr function to implement countDown functionalities,
+    //the countDown function will be executed when the user provides the time 
     func countDown() {
         timer--
         let roomNumber = userDefault.stringForKey("checkedInRoomId")
@@ -159,6 +168,7 @@ class ViewController: UIViewController {
         }
     }
     
+    //function to automatically checkout the rooms for the user when the timer hits zero
     func automaticallyCheckout() {
         //yet to implement
         let roomNumber = userDefault.stringForKey("checkedInRoomId")!
